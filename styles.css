@@ -3,10 +3,13 @@ body {
   margin: 20px;
 }
 
-#imageContainer,
-#textContainer,
-#translation {
-  margin-top: 20px;
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.column {
+  flex: 1;
 }
 
 #uploadedImage {
