@@ -33,7 +33,7 @@ async function translateText(text) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      auth_key: "YOUR_DEEPL_API_KEY",
+      auth_key: "3d7e3da4-defa-46ed-9592-4a909a08c449:fx",
       text: text,
       source_lang: "JA",
       target_lang: "EN",
