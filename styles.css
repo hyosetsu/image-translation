@@ -10,8 +10,8 @@ body {
 }
 
 #uploadedImage {
-  max-width: 100%; /* 画像を最大幅に合わせて表示 */
-  height: auto; /* 高さを自動調整 */
+  max-width: 100%;
+  height: auto;
 }
 
 #extractedText {

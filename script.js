@@ -24,11 +24,17 @@ async function uploadImage() {
   document.getElementById("textContainer").style.display = "block";
 }
 
-async function translateText() {
-  const apiKey = "3d7e3da4-defa-46ed-9592-4a909a08c449:fx";
+function correctText() {
+  const correctedText = document.getElementById("extractedText").value;
+  extractedText = correctedText;
+  translateText(correctedText);
+}
+
+async function translateText(text) {
+  const apiKey = "YOUR_DEEPL_API_KEY";
   const response = await fetch(
     `https://api-free.deepl.com/v2/translate?auth_key=${apiKey}&text=${encodeURIComponent(
-      extractedText
+      text
     )}&target_lang=JA`
   );
   const data = await response.json();
