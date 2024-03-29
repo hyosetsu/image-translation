@@ -9,6 +9,10 @@ body {
     padding: 20px;
 }
 
+#extractedText {
+    margin-top: 20px;
+}
+
 #translatedText {
     margin-top: 20px;
 }

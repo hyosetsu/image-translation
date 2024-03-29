@@ -4,29 +4,49 @@ document
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = function (e) {
-        const img = new Image();
-        img.src = e.target.result;
-        img.onload = function () {
-          // 画像が読み込まれた後、ここで翻訳の処理を行う
-          const canvas = document.createElement("canvas");
-          const context = canvas.getContext("2d");
-          canvas.width = img.width;
-          canvas.height = img.height;
-          context.drawImage(img, 0, 0);
-          const imageData = context.getImageData(
-            0,
-            0,
-            canvas.width,
-            canvas.height
-          );
-          // ここに画像の文字認識と翻訳の処理を追加する
-          // 例えば、Google Cloud Vision APIを使用する場合:
-          // https://cloud.google.com/vision/docs/ocr?hl=ja
-          // その他の画像認識APIも利用可能
-          // 翻訳APIは、Google Cloud Translation APIなどを利用できる
-        };
+      reader.onload = async function (e) {
+        const imgData = e.target.result.split(",")[1];
+        const extractedText = await extractText(imgData);
+        const correctedText = await correctText(extractedText);
+        const translatedText = await translateText(correctedText);
+        displayText(extractedText, translatedText);
       };
       reader.readAsDataURL(file);
     }
   });
+
+async function extractText(imgData) {
+  // 画像から文字を抽出する処理を記述する（未実装）
+  return "これは抽出されたテキストです。";
+}
+
+async function correctText(text) {
+  // テキストを訂正する処理を記述する（今回は省略）
+  return text;
+}
+
+async function translateText(text) {
+  // DeepL API を使用してテキストを翻訳する処理を記述する
+  const response = await fetch("https://api-free.deepl.com/v2/translate", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      auth_key: "YOUR_DEEPL_API_KEY",
+      text: text,
+      source_lang: "JA",
+      target_lang: "EN",
+    }),
+  });
+  const data = await response.json();
+  return data.translations[0].text;
+}
+
+function displayText(extractedText, translatedText) {
+  const extractedTextDiv = document.getElementById("extractedText");
+  extractedTextDiv.textContent = `抽出されたテキスト: ${extractedText}`;
+
+  const translatedTextDiv = document.getElementById("translatedText");
+  translatedTextDiv.textContent = `翻訳されたテキスト: ${translatedText}`;
+}
