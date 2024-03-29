@@ -1,18 +1,31 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>写真の文字自動翻訳</title>
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>写真の文字抽出と編集</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>写真の文字自動翻訳</h1>
-        <input type="file" id="uploadInput" accept="image/*">
-        <div id="extractedText"></div>
-        <div id="translatedText"></div>
-    </div>
-    <script src="script.js"></script>
+<h1>写真の文字抽出と編集</h1>
+<div>
+  <input type="file" id="fileInput" accept="image/*">
+  <button onclick="uploadImage()">アップロード</button>
+</div>
+<div id="imageContainer" style="display: none;">
+  <img id="uploadedImage" src="" alt="アップロードされた画像">
+</div>
+<div id="textContainer" style="display: none;">
+  <h2>抽出されたテキスト:</h2>
+  <div id="extractedText" contenteditable="true"></div>
+  <button onclick="translateText()">翻訳</button>
+</div>
+<div id="translation" style="display: none;">
+  <h2>翻訳されたテキスト:</h2>
+  <p id="translatedText"></p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js"></script>
+<script src="script.js"></script>
 </body>
 </html>

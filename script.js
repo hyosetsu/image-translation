@@ -1,52 +1,38 @@
-document
-  .getElementById("uploadInput")
-  .addEventListener("change", function (event) {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = async function (e) {
-        const imgData = e.target.result.split(",")[1];
-        const extractedText = await extractText(imgData);
-        const correctedText = await correctText(extractedText);
-        const translatedText = await translateText(correctedText);
-        displayText(extractedText, translatedText);
-      };
-      reader.readAsDataURL(file);
-    }
-  });
+let extractedText = "";
 
-async function extractText(imgData) {
-  // 画像から文字を抽出する処理を記述する（未実装）
-  return "これは抽出されたテキストです。";
+async function uploadImage() {
+  const fileInput = document.getElementById("fileInput");
+  const file = fileInput.files[0];
+  if (!file) {
+    alert("ファイルを選択してください");
+    return;
+  }
+
+  const uploadedImage = document.getElementById("uploadedImage");
+  uploadedImage.src = URL.createObjectURL(file);
+  document.getElementById("imageContainer").style.display = "block";
+
+  // Tesseract.jsを初期化し、画像からテキストを抽出する
+  const {
+    data: { text },
+  } = await Tesseract.recognize(file);
+
+  extractedText = text;
+  const extractedTextElement = document.getElementById("extractedText");
+  extractedTextElement.textContent = extractedText;
+  extractedTextElement.focus();
+  document.getElementById("textContainer").style.display = "block";
 }
 
-async function correctText(text) {
-  // テキストを訂正する処理を記述する（今回は省略）
-  return text;
-}
-
-async function translateText(text) {
-  // DeepL API を使用してテキストを翻訳する処理を記述する
-  const response = await fetch("https://api-free.deepl.com/v2/translate", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      auth_key: "3d7e3da4-defa-46ed-9592-4a909a08c449:fx",
-      text: text,
-      source_lang: "JA",
-      target_lang: "EN",
-    }),
-  });
+async function translateText() {
+  const apiKey = "3d7e3da4-defa-46ed-9592-4a909a08c449:fx";
+  const response = await fetch(
+    `https://api-free.deepl.com/v2/translate?auth_key=${apiKey}&text=${encodeURIComponent(
+      extractedText
+    )}&target_lang=JA`
+  );
   const data = await response.json();
-  return data.translations[0].text;
-}
-
-function displayText(extractedText, translatedText) {
-  const extractedTextDiv = document.getElementById("extractedText");
-  extractedTextDiv.textContent = `抽出されたテキスト: ${extractedText}`;
-
-  const translatedTextDiv = document.getElementById("translatedText");
-  translatedTextDiv.textContent = `翻訳されたテキスト: ${translatedText}`;
+  document.getElementById("translatedText").textContent =
+    data.translations[0].text;
+  document.getElementById("translation").style.display = "block";
 }
