@@ -8,13 +8,13 @@
 </head>
 <body>
 <h1>写真の文字抽出と翻訳</h1>
-<div class="container">
-  <div id="imageContainer" class="column">
+<div class="container" id="container">
+  <div class="column" id="imageContainer">
     <input type="file" id="fileInput" accept="image/*">
     <button onclick="uploadImage()">アップロード</button>
     <img id="uploadedImage" src="" alt="アップロードされた画像">
   </div>
-  <div id="textContainer" class="column">
+  <div class="column" id="textContainer">
     <div>
       <h2>抽出されたテキスト:</h2>
       <textarea id="extractedText" rows="5" cols="50"></textarea>

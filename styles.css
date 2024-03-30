@@ -31,11 +31,14 @@ body {
   margin-top: 10px;
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 748px) {
   .container {
     flex-direction: row;
   }
-  .column {
-    flex-basis: 50%;
+}
+
+@media screen and (max-width: 747px) {
+  #container {
+    flex-direction: column;
   }
 }
