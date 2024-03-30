@@ -9,6 +9,7 @@ body {
 
 .column {
   flex: 1;
+  padding: 10px;
 }
 
 #uploadedImage {
@@ -28,4 +29,13 @@ body {
   border: 1px solid #ccc;
   padding: 5px;
   margin-top: 10px;
+}
+
+@media screen and (min-width: 600px) {
+  .container {
+    flex-direction: row;
+  }
+  .column {
+    flex-basis: 50%;
+  }
 }
