@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,14 +11,18 @@
 <div class="container" id="container">
   <div class="column" id="imageContainer">
     <input type="file" id="fileInput" accept="image/*">
-    <button onclick="uploadImage()">アップロード</button>
+    <div class="button-container">
+      <button onclick="uploadImage()">アップロード</button>
+    </div>
     <img id="uploadedImage" src="" alt="アップロードされた画像">
   </div>
   <div class="column" id="textContainer">
     <div>
       <h2>抽出されたテキスト:</h2>
       <textarea id="extractedText" rows="5" cols="50"></textarea>
-      <button onclick="correctText()">翻訳</button>
+      <div class="button-container">
+        <button onclick="correctText()">翻訳</button>
+      </div>
     </div>
     <div id="translation" style="display: none;">
       <h2>翻訳されたテキスト:</h2>

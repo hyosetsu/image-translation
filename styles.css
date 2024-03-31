@@ -36,6 +36,15 @@ body {
   margin-top: 10px;
 }
 
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.button-container button {
+  margin: 5px; /* ボタンの間隔を調整 */
+}
+
 @media screen and (min-width: 748px) {
   .container {
     flex-direction: row;
